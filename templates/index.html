@@ -22,7 +22,11 @@
                 <button class="btn btn-danger" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</button> 
               </a>
 
-              <button class="btn btn-success">편집</button></td>
+              <a href="/{{ article[0] }}/edit">
+                <button class="btn btn-success"> 편집 </button> 
+              </a>
+
+              </td>
 
         </tr>
         {% endfor %} 
