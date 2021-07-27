@@ -1,8 +1,22 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request,redirect
 from data import Articles
+import pymysql
 
 app= Flask(__name__)
 app.debug=True
+
+# database에 접근
+db= pymysql.connect(host='localhost',
+                     port=3306,
+                     user='root',
+                     passwd='1234',
+                     db='o2',
+                     charset='utf8')
+
+# database를 사용하기 위한 cursor를 세팅합니다.
+cursor= db.cursor()
+
+
 
 @app.route('/',methods=['GET','POST'])
 def hello_world():
@@ -21,7 +35,7 @@ def detail(id):
         return render_template('detail.html',article=articles[int(id)-1])
 
 
-@app.route('/article/add',method=['GET','POST'] )
+@app.route('/article/add',methods=['GET','POST'] )
 def add_article():
     if request.method=='GET':
         return render_template('add_article.html')
@@ -31,8 +45,17 @@ def add_article():
         description=request.form['description']
         author=request.form['author']
 
-        
-        return "SUCCESS"
+        # SQL query 작성
+        sql= f"""INSERT INTO lists(title, description,author) 
+            VALUES('{title}','{description}','{author}');"""
+        # print(sql)
+        #SQL query 실행
+        cursor.execute(sql)
+
+        # 데이터 변화 적용
+        db.commit()
+
+        return redirect('/')
 
 if __name__ == '__main__':
     app.run()
