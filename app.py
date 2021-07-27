@@ -57,5 +57,16 @@ def add_article():
 
         return redirect('/')
 
+@app.route('/<id>/delete')
+def del_article(id):
+    # SQL query 작성s
+    sql= f'DELETE FROM lists WHERE id={id}'
+    # print(sql)
+    #SQL query 실행
+    cursor.execute(sql)
+
+    # 데이터 변화 적용
+    db.commit()
+    return redirect('/')
 if __name__ == '__main__':
     app.run()

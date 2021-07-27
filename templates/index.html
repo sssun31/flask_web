@@ -8,6 +8,7 @@
           <th>title</th>
           <th>author</th>
           <th>create_date</th>
+          <th>기타</th>
         </tr>
         {% for article in articles %}
 
@@ -16,13 +17,18 @@
             <td><a href="/{{ article['id'] }}/article">{{article['title']}}</a></td>
             <td>{{article['author']}}</td>
             <td>{{article['create_date']}}</td>
+            <td>
+              <a href="/{{ article['id'] }}/delete">
+                <button class="btn btn-danger" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</button> 
+              </a>
+
+              <button class="btn btn-success">편집</button></td>
 
         </tr>
-        {% endfor %}
-
-        
-        
+        {% endfor %} 
         
       </table>
+
+      <a href="/article/add"><button class="btn btn-warning">글쓰기</button></a>
 
       {% endblock %}
