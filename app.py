@@ -22,17 +22,25 @@ cursor= db.cursor()
 def hello_world():
     articles=Articles()
     #print(articles)
+    sql= f"SELECT * FROM lists"
+    cursor.execute(sql)
+    articles=cursor.fetchall()
+    print(articles[0][1])
 
     for i in articles:
-        print(i['title'])
+        print(i[1])
     return render_template('index.html', articles = articles )
 
 @app.route('/<id>/article',methods=['GET','POST'])
 def detail(id):
     if request.method=='GET':
-        articles=Articles()
-        print(articles[int(id)-1])
-        return render_template('detail.html',article=articles[int(id)-1])
+        # articles=Articles()
+        # print(articles[int(id)-1])
+        sql= f"SELECT * FROM lists WHERE id={int(id)}"
+        cursor.execute(sql)
+        article=cursor.fetchone()
+        print(article)
+        return render_template('detail.html',article=article)
 
 
 @app.route('/article/add',methods=['GET','POST'] )

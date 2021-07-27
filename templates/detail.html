@@ -1,11 +1,11 @@
 {% extends "layouts.html" %}
 
 {% block body %}
-    <h3>제목 : {{ article['title'] }}</article></h3>
-    <header>작가 : {{ article['author'] }}</header>
-    <span>내용 <br> <hr> {{ article['body'] }}</span>
+    <h3>제목 : {{ article[1] }}</article></h3>
+    <header>작가 : {{ article[3] }}</header>
+    <span>내용 <br> <hr> {{ article[2] }}</span>
 
-    <footer>{{article['create_date'] }} </footer>
+    <footer>{{article[4] }} </footer>
 
 {% endblock %}
     
